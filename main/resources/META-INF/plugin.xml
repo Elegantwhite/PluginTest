@@ -1,0 +1,55 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.msun.MsunEngineer</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>MsunEngineer</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="sunyijie@msunhealth.com" url="https://www.msunsoft.com/">Msun</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description>
+    this plugin is for testing purposes, won't have any real functionality.
+    </description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+
+    <actions>
+        <group id="EditorContext" text="MsunEngineer" popup="true">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <action id="TestAction"
+                    class="com.msun.MsunEngineer.Actions.EditorPopupMenu.AddFileAction"
+                    text="输出路径"/>
+            <action class="com.msun.MsunEngineer.Actions.EditorPopupMenu.MyCustomAction"
+                    id="AddFileAction"
+                    text="自定义菜单项"/>
+            <action id="AddSelectionAction"
+                    class="com.msun.MsunEngineer.Actions.EditorPopupMenu.AddSelectionAction"
+                    text="打印选中文本"/>
+
+        </group>
+        <group id="Msun.StatusBarPopupMenu" text="MsunEngineer" popup="true">
+            <action class="com.msun.MsunEngineer.Actions.OpenSettingsAction" text="设置"/>
+        </group>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow factoryClass="com.msun.MsunEngineer.ToolWindows.WindowToolFactory"
+                    id="MsunCoder"
+                    anchor="right"/>
+        <statusBarWidgetFactory implementation="com.msun.MsunEngineer.ToolWindows.StatusBarToolWindowFactory" id="MsunStatusBarWidget"/>
+        <projectConfigurable parentId="editor"
+                            id="com.msun.MsunEngineer.Settings.MyPluginSettingsConfigurable"
+                             instance="com.msun.MsunEngineer.Settings.MyPluginSettingsConfigurable"
+                             displayName="Msun"/>
+    </extensions>
+</idea-plugin>
